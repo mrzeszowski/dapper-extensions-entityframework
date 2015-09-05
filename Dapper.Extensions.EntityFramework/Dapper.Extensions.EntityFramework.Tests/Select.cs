@@ -33,7 +33,7 @@ namespace Dapper.Extensions.EntityFramework.Tests
             // assert
             Assert.NotNull(products);
             Assert.NotNull(products.First().Id);
-            Assert.NotEmpty(products);
+            Assert.NotEmpty(products);        
             Assert.Equal(504, products.Count);
         }
 
@@ -52,7 +52,27 @@ namespace Dapper.Extensions.EntityFramework.Tests
             // assert
             Assert.NotNull(products);
             Assert.NotEmpty(products);
-            Assert.IsType<Product>(products.First());
+            Assert.IsType<List<Product>>(products);
+            Assert.Equal(504, products.Count);
+        }
+
+        [Fact]
+        public void SelectName()
+        { 
+            // assemble
+            // SELECT [Name]
+            // FROM [AdventureWorks].[Production].[Product]
+
+            // act
+            var products = DbConnection.Use(Context)
+                .From(x => x.Products)
+                .Select(x => x.Name)
+                .ToList();
+
+            // assert
+            Assert.NotNull(products);
+            Assert.IsType<List<string>>(products);
+            Assert.NotEmpty(products);
             Assert.Equal(504, products.Count);
         }
     }

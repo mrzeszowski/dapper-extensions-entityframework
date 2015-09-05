@@ -72,6 +72,7 @@
     <Compile Include="Select.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="ToList.cs" />
+    <Compile Include="Where.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

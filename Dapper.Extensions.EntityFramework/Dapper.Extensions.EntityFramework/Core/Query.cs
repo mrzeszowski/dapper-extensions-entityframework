@@ -14,9 +14,7 @@ using Dapper.Extensions.EntityFramework.Exceptions;
 namespace Dapper.Extensions.EntityFramework.Core
 {
     internal class Query<T> : ConnectionContainer, IQuery<T>
-        where T : class
     {
-        private IDbSet<T> _dbSet;
         private IQueryable<T> _queryable;
         private ConstructorInfo _newCtor;
 
@@ -24,19 +22,13 @@ namespace Dapper.Extensions.EntityFramework.Core
         {
             get
             {
-                return _queryable ?? (_queryable = _dbSet);
+                return _queryable;
             }
         }
 
         #region Constructors
 
-        internal Query(IDbSet<T> dbSet, IDbConnection dbConnection)
-            : base(dbConnection)
-        {
-            _dbSet = dbSet;
-        }
-
-        private Query(IQueryable<T> queryable, IDbConnection dbConnection)
+        internal Query(IQueryable<T> queryable, IDbConnection dbConnection)
             : base(dbConnection)
         {
             _queryable = queryable;
@@ -50,8 +42,15 @@ namespace Dapper.Extensions.EntityFramework.Core
 
         #endregion
 
+        public IQuery<T> Where(Expression<Func<T, bool>> predicate)
+        {
+            return new Query<T>(
+                Queryable.Where(predicate),
+                base.DbConnection
+                );
+        }
+
         public IQuery<TResult> Select<TResult>(Expression<Func<T, TResult>> selector)
-            where TResult : class
         {
             CatchExpressionCtor(selector.Body);
 
@@ -70,9 +69,10 @@ namespace Dapper.Extensions.EntityFramework.Core
                     .Select(x =>
                         _newCtor.Invoke(
                             ((IDictionary<string, object>)x).Values.ToArray()
-                            ) as T
+                            ) 
                         )
-                    .ToList();
+                    .Cast<T>()
+                    .ToList<T>();
             }
             return DbConnection.Query<T>(Queryable.ToString()).ToList();
         }
@@ -88,5 +88,9 @@ namespace Dapper.Extensions.EntityFramework.Core
         }
 
         #endregion
+
+
+
+
     }
 }
