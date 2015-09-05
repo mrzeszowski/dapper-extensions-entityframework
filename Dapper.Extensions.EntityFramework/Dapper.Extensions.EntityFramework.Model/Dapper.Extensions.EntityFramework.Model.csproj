@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{61F0C8B3-09B6-48F6-90E9-69E84DF189D9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Dapper.Extensions.EntityFramework.Model</RootNamespace>
+    <AssemblyName>Dapper.Extensions.EntityFramework.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Address.cs" />
+    <Compile Include="Entities\AddressType.cs" />
+    <Compile Include="AdventureWorksContext.cs" />
+    <Compile Include="Entities\BillOfMaterial.cs" />
+    <Compile Include="Entities\BusinessEntity.cs" />
+    <Compile Include="Entities\BusinessEntityAddress.cs" />
+    <Compile Include="Entities\BusinessEntityContact.cs" />
+    <Compile Include="Entities\ContactType.cs" />
+    <Compile Include="Entities\CountryRegion.cs" />
+    <Compile Include="Entities\CountryRegionCurrency.cs" />
+    <Compile Include="Entities\CreditCard.cs" />
+    <Compile Include="Entities\Culture.cs" />
+    <Compile Include="Entities\Currency.cs" />
+    <Compile Include="Entities\CurrencyRate.cs" />
+    <Compile Include="Entities\Customer.cs" />
+    <Compile Include="Entities\Department.cs" />
+    <Compile Include="Entities\EmailAddress.cs" />
+    <Compile Include="Entities\Employee.cs" />
+    <Compile Include="Entities\EmployeeDepartmentHistory.cs" />
+    <Compile Include="Entities\EmployeePayHistory.cs" />
+    <Compile Include="Entities\Illustration.cs" />
+    <Compile Include="Entities\JobCandidate.cs" />
+    <Compile Include="Entities\Location.cs" />
+    <Compile Include="Entities\Password.cs" />
+    <Compile Include="Entities\Person.cs" />
+    <Compile Include="Entities\PersonCreditCard.cs" />
+    <Compile Include="Entities\PersonPhone.cs" />
+    <Compile Include="Entities\PhoneNumberType.cs" />
+    <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\ProductCategory.cs" />
+    <Compile Include="Entities\ProductCostHistory.cs" />
+    <Compile Include="Entities\ProductDescription.cs" />
+    <Compile Include="Entities\ProductDocument.cs" />
+    <Compile Include="Entities\ProductInventory.cs" />
+    <Compile Include="Entities\ProductListPriceHistory.cs" />
+    <Compile Include="Entities\ProductModel.cs" />
+    <Compile Include="Entities\ProductModelIllustration.cs" />
+    <Compile Include="Entities\ProductModelProductDescriptionCulture.cs" />
+    <Compile Include="Entities\ProductPhoto.cs" />
+    <Compile Include="Entities\ProductProductPhoto.cs" />
+    <Compile Include="Entities\ProductReview.cs" />
+    <Compile Include="Entities\ProductSubcategory.cs" />
+    <Compile Include="Entities\ProductVendor.cs" />
+    <Compile Include="Entities\PurchaseOrderDetail.cs" />
+    <Compile Include="Entities\PurchaseOrderHeader.cs" />
+    <Compile Include="Entities\SalesOrderDetail.cs" />
+    <Compile Include="Entities\SalesOrderHeader.cs" />
+    <Compile Include="Entities\SalesOrderHeaderSalesReason.cs" />
+    <Compile Include="Entities\SalesPerson.cs" />
+    <Compile Include="Entities\SalesPersonQuotaHistory.cs" />
+    <Compile Include="Entities\SalesReason.cs" />
+    <Compile Include="Entities\SalesTaxRate.cs" />
+    <Compile Include="Entities\SalesTerritory.cs" />
+    <Compile Include="Entities\SalesTerritoryHistory.cs" />
+    <Compile Include="Entities\ScrapReason.cs" />
+    <Compile Include="Entities\Shift.cs" />
+    <Compile Include="Entities\ShipMethod.cs" />
+    <Compile Include="Entities\ShoppingCartItem.cs" />
+    <Compile Include="Entities\SpecialOffer.cs" />
+    <Compile Include="Entities\SpecialOfferProduct.cs" />
+    <Compile Include="Entities\StateProvince.cs" />
+    <Compile Include="Entities\Store.cs" />
+    <Compile Include="Entities\TransactionHistory.cs" />
+    <Compile Include="Entities\TransactionHistoryArchive.cs" />
+    <Compile Include="Entities\UnitMeasure.cs" />
+    <Compile Include="Entities\Vendor.cs" />
+    <Compile Include="Entities\WorkOrder.cs" />
+    <Compile Include="Entities\WorkOrderRouting.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
