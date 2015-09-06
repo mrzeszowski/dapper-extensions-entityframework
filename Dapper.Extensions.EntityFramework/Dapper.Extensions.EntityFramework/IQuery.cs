@@ -9,6 +9,15 @@ namespace Dapper.Extensions.EntityFramework
 {
     public interface IQuery<T>
     {
+        // order by
+        IQuery<T> OrderBy<TKey>(Expression<Func<T, TKey>> keySelector);
+
+        // skip
+        IQuery<T> Skip(int count);
+
+        // take
+        IQuery<T> Take(int count);
+
         // where
         IQuery<T> Where(Expression<Func<T, bool>> predicate);
 

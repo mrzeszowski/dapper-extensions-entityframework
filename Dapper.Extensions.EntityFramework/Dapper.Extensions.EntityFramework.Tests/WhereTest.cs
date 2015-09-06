@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Dapper.Extensions.EntityFramework.Tests
 {
-    public class Where : Test
+    public class WhereTest : Test
     {
         [Fact]
         public void WhereSellEndDateHasValue()

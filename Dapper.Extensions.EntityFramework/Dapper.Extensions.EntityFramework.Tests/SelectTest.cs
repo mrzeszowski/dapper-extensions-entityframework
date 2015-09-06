@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xunit;
 
 using Dapper.Extensions.EntityFramework.Model.Entities;
 
+using Xunit;
+
 namespace Dapper.Extensions.EntityFramework.Tests
 {
-    public class Select : Test
+    public class SelectTest : Test
     {
         [Fact]
         public void SelectTTResult()
@@ -38,7 +39,7 @@ namespace Dapper.Extensions.EntityFramework.Tests
         }
 
         [Fact]
-        public void SeletcTTResultTyped()
+        public void Select()
         {
             // assemble
             // SELECT * FROM Production.Product            

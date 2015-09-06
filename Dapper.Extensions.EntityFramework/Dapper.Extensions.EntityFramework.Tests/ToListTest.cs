@@ -12,10 +12,10 @@ using Xunit;
 
 namespace Dapper.Extensions.EntityFramework.Tests
 {
-    public class ToList : Test
+    public class ToListTest : Test
     {
         [Fact]
-        public void ToListTest()
+        public void ToList()
         {
             // assemble
             // SELECT * FROM Production.Products
@@ -27,7 +27,6 @@ namespace Dapper.Extensions.EntityFramework.Tests
             Assert.NotNull(products);
             Assert.IsType<List<Product>>(products);
             Assert.Equal(products.Count(), 504);
-
         }
     }
 }

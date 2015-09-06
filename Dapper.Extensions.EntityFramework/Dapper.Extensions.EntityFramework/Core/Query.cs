@@ -24,6 +24,10 @@ namespace Dapper.Extensions.EntityFramework.Core
             {
                 return _queryable;
             }
+            set
+            {
+                _queryable = value;
+            }
         }
 
         #region Constructors
@@ -42,12 +46,28 @@ namespace Dapper.Extensions.EntityFramework.Core
 
         #endregion
 
+        public IQuery<T> OrderBy<TKey>(Expression<Func<T, TKey>> keySelector)
+        {
+            Queryable = Queryable.OrderBy(keySelector);
+            return this;
+        }
+
+        public IQuery<T> Skip(int count)
+        {
+            Queryable = Queryable.Skip(count);
+            return this;
+        }
+
+        public IQuery<T> Take(int count)
+        {
+            Queryable = Queryable.Take(count);
+            return this;
+        }
+
         public IQuery<T> Where(Expression<Func<T, bool>> predicate)
         {
-            return new Query<T>(
-                Queryable.Where(predicate),
-                base.DbConnection
-                );
+            Queryable = Queryable.Where(predicate);
+            return this;
         }
 
         public IQuery<TResult> Select<TResult>(Expression<Func<T, TResult>> selector)
@@ -88,9 +108,6 @@ namespace Dapper.Extensions.EntityFramework.Core
         }
 
         #endregion
-
-
-
 
     }
 }
