@@ -76,5 +76,46 @@ namespace Dapper.Extensions.EntityFramework.Tests
             Assert.NotEmpty(products);
             Assert.Equal(504, products.Count);
         }
+
+        [Fact]
+        public void SubquerySelect()
+        {
+            // assemble
+            //SELECT *
+            //FROM
+            //(	
+            //    SELECT
+            //        [ProductID] AS [ProductId],
+            //        (
+            //            SELECT COUNT([PurchaseOrderDetailID])
+            //            FROM [Purchasing].[PurchaseOrderDetail]
+            //            WHERE [ProductID] = [Production].[Product].[ProductID]
+            //        ) AS [Count],
+            //        (
+            //            SELECT SUM([UnitPrice])
+            //            FROM [Purchasing].[PurchaseOrderDetail]
+            //            WHERE [ProductID] = [Production].[Product].[ProductID]
+            //        ) AS [UnitPrice]
+            //    FROM [Production].[Product]
+            //) AS [Query]
+            //WHERE [UnitPrice] > 0
+
+            // act
+            var products = DbConnection.Use(Context)
+                .From(x => x.Products)
+                .Select(x => new
+                {
+                    ProductId = x.ProductID,
+                    PurchaseOrderDetailsCount = x.PurchaseOrderDetails.Count,
+                    PurchaseOrderDetailsUnitPriceCount = x.PurchaseOrderDetails.Select(n => n.UnitPrice).Sum()
+                })
+                .Where(x => x.PurchaseOrderDetailsUnitPriceCount > 0)
+                .ToList();
+
+            // assert
+            Assert.NotNull(products);
+            Assert.NotEmpty(products);
+            Assert.Equal(265, products.Count);
+        }
     }
 }

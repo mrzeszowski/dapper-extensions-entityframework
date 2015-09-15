@@ -9,6 +9,9 @@ namespace Dapper.Extensions.EntityFramework
 {
     public interface IQuery<T>
     {
+        // include
+        IQuery<T> Include<TProperty>(Expression<Func<T, TProperty>> path);
+
         // order by
         IQuery<T> OrderBy<TKey>(Expression<Func<T, TKey>> keySelector);
 

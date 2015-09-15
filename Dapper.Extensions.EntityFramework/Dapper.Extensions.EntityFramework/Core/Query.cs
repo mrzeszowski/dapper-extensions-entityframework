@@ -46,6 +46,12 @@ namespace Dapper.Extensions.EntityFramework.Core
 
         #endregion
 
+        public IQuery<T> Include<TProperty>(Expression<Func<T, TProperty>> path)
+        {
+            Queryable = Queryable.Include(path);
+            return this;
+        }
+
         public IQuery<T> OrderBy<TKey>(Expression<Func<T, TKey>> keySelector)
         {
             Queryable = Queryable.OrderBy(keySelector);
@@ -108,6 +114,5 @@ namespace Dapper.Extensions.EntityFramework.Core
         }
 
         #endregion
-
     }
 }
