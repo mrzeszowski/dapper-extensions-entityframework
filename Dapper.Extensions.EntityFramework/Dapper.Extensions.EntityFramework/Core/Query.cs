@@ -16,7 +16,7 @@ namespace Dapper.Extensions.EntityFramework.Core
     internal class Query<T> : ConnectionContainer, IQuery<T>
     {
         private IQueryable<T> _queryable;
-        private ConstructorInfo _newCtor;
+        private QueryOptions _options;
 
         internal IQueryable<T> Queryable
         {
@@ -36,15 +36,44 @@ namespace Dapper.Extensions.EntityFramework.Core
             : base(dbConnection)
         {
             _queryable = queryable;
+
+            if (Check.IsNull(_options))
+            {
+                _options = new QueryOptions();
+            }
         }
 
-        private Query(IQueryable<T> queryable, ConstructorInfo newCtor, IDbConnection dbConnection)
+        private Query(IQueryable<T> queryable, QueryOptions options, IDbConnection dbConnection)
             : this(queryable, dbConnection)
         {
-            _newCtor = newCtor;
+            _options = options;
         }
 
         #endregion
+
+        public IQuery<IGrouping<TKey, T>> GroupBy<TKey>(Expression<Func<T, TKey>> keySelector)
+        {
+            _options.GroupByInvoked = true;
+
+            return new Query<IGrouping<TKey, T>>(
+                Queryable.GroupBy(keySelector),
+                _options,
+                DbConnection
+            );
+        }
+
+        public IQuery<TResult> GroupBy<TKey, TResult>(Expression<Func<T, TKey>> keySelector, Expression<Func<TKey, IEnumerable<T>, TResult>> resultSelector)
+        {
+            _options.GroupByInvoked = true;
+
+            CatchExpressionCtor(resultSelector.Body);
+
+            return new Query<TResult>(
+                Queryable.GroupBy(keySelector, resultSelector),
+                _options,
+                DbConnection
+            );
+        }
 
         public IQuery<T> Include<TProperty>(Expression<Func<T, TProperty>> path)
         {
@@ -82,20 +111,20 @@ namespace Dapper.Extensions.EntityFramework.Core
 
             return new Query<TResult>(
                 Queryable.Select(selector),
-                _newCtor,
-                base.DbConnection
+                _options,
+                DbConnection
                 );
         }
 
         public List<T> ToList()
         {
-            if (Check.NotNull(_newCtor))
+            if (Check.NotNull(_options.NewCtor))
             {
                 return DbConnection.Query(Queryable.ToString())
                     .Select(x =>
-                        _newCtor.Invoke(
-                            ((IDictionary<string, object>)x).Values.ToArray()
-                            ) 
+                        _options.NewCtor.Invoke(
+                            ((IDictionary<string, object>)x).Values.Skip(_options.GroupByInvoked ? 1 : 0).ToArray()
+                            )
                         )
                     .Cast<T>()
                     .ToList<T>();
@@ -109,7 +138,7 @@ namespace Dapper.Extensions.EntityFramework.Core
         {
             if (expression is NewExpression)
             {
-                _newCtor = (expression as NewExpression).Constructor;
+                _options.NewCtor = (expression as NewExpression).Constructor;
             }
         }
 

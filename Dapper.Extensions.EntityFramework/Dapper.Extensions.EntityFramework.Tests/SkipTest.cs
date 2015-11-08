@@ -24,6 +24,7 @@ namespace Dapper.Extensions.EntityFramework.Tests
                 .Skip(100)
                 .ToList();
 
+            // assert
             Assert.NotNull(products);
             Assert.NotEmpty(products);
             Assert.Equal(404, products.Count);

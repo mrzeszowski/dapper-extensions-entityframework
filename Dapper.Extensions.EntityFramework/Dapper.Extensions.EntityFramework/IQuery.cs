@@ -9,6 +9,11 @@ namespace Dapper.Extensions.EntityFramework
 {
     public interface IQuery<T>
     {
+        // group by
+        IQuery<IGrouping<TKey, T>> GroupBy<TKey>(Expression<Func<T, TKey>> keySelector);
+
+        IQuery<TResult> GroupBy<TKey, TResult>(Expression<Func<T, TKey>> keySelector, Expression<Func<TKey, IEnumerable<T>, TResult>> resultSelector);
+
         // include
         IQuery<T> Include<TProperty>(Expression<Func<T, TProperty>> path);
 

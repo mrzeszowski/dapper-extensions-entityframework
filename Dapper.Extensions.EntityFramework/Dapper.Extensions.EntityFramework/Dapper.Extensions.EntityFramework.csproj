@@ -56,6 +56,7 @@
     <Compile Include="Core\ConnectionContainer.cs" />
     <Compile Include="Core\ContextQuery.cs" />
     <Compile Include="Core\Query.cs" />
+    <Compile Include="Core\QueryOptions.cs" />
     <Compile Include="Exceptions\WrongResultTypeException.cs" />
     <Compile Include="IContextQuery.cs" />
     <Compile Include="IQuery.cs" />
